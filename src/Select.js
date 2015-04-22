@@ -118,12 +118,12 @@ var Select = React.createClass({
 
 		this._bindCloseMenuIfClickedOutside = function() {
 			document.addEventListener('click', this._closeMenuIfClickedOutside);
-		};
+		}.bind(this);
 
 		this._unbindCloseMenuIfClickedOutside = function() {
 			document.removeEventListener('click', this._closeMenuIfClickedOutside);
-		};
-	},
+		}.bind(this);
+  },
 
 	componentWillUnmount: function() {
 		clearTimeout(this._blurTimeout);
@@ -579,6 +579,8 @@ var Select = React.createClass({
 			focusedValue = focusedValue == null ? this.state.filteredOptions[0] : focusedValue;
 		}
 
+    var self = this;
+
 		var ops = Object.keys(this.state.filteredOptions).map(function(key) {
 			var op = this.state.filteredOptions[key];
 			var isFocused = focusedValue === op.value;
@@ -594,9 +596,17 @@ var Select = React.createClass({
 				mouseLeave = this.unfocusOption.bind(this, op),
 				mouseDown = this.selectValue.bind(this, op);
 
-			return <div ref={ref} key={'option-' + op.value} className={optionClass} onMouseEnter={mouseEnter} onMouseLeave={mouseLeave} onMouseDown={mouseDown} onClick={mouseDown}>{op.label}</div>;
+      var regEx = new RegExp(self.props.inputValue, "ig");
+      var replaceMask = '<strong>'+self.props.inputValue+'</strong>';
+      var label = op.label.replace(regEx, replaceMask);
 
-		}, this);
+      return (
+        <div ref={ref} key={'option-'+op.value} className={optionClass} onMouseEnter={mouseEnter}
+          onMouseLeave={mouseLeave} onMouseDown={mouseDown} onClick={mouseDown}
+          dangerouslySetInnerHTML={{__html: label}}
+        />
+      );
+  }, this);
 
 		return ops.length ? ops : (
 			<div className="Select-noresults">
