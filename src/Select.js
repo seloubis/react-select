@@ -596,8 +596,8 @@ var Select = React.createClass({
 				mouseLeave = this.unfocusOption.bind(this, op),
 				mouseDown = this.selectValue.bind(this, op);
 
-      var regEx = new RegExp(self.props.inputValue, "ig");
-      var replaceMask = '<strong>'+self.props.inputValue+'</strong>';
+      var regEx = new RegExp(self.state.inputValue, "ig");
+      var replaceMask = '<strong>'+self.state.inputValue+'</strong>';
       var label = op.label.replace(regEx, replaceMask);
 
       return (
