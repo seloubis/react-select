@@ -659,7 +659,7 @@ var Select = React.createClass({
 			    mouseDown = this.selectValue.bind(this, op);
 
 			var regEx = new RegExp(self.state.inputValue, 'ig');
-			var result = string.match(regEx);
+			var result = op.label.match(regEx);
 			var replaceMask = '<strong>' + result + '</strong>';
 			var label = op.label.replace(result, replaceMask);
 
