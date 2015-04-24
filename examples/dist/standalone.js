@@ -606,8 +606,9 @@ var Select = React.createClass({
 			    mouseDown = this.selectValue.bind(this, op);
 
 			var regEx = new RegExp(self.state.inputValue, 'ig');
-			var replaceMask = '<strong>' + self.state.inputValue + '</strong>';
-			var label = op.label.replace(regEx, replaceMask);
+			var result = string.match(regEx);
+			var replaceMask = '<strong>' + result + '</strong>';
+			var label = op.label.replace(result, replaceMask);
 
 			return React.createElement('div', { ref: ref, key: 'option-' + op.value, className: optionClass, onMouseEnter: mouseEnter,
 				onMouseLeave: mouseLeave, onMouseDown: mouseDown, onClick: mouseDown,

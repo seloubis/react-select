@@ -596,9 +596,10 @@ var Select = React.createClass({
 				mouseLeave = this.unfocusOption.bind(this, op),
 				mouseDown = this.selectValue.bind(this, op);
 
-      var regEx = new RegExp(self.state.inputValue, "ig");
-      var replaceMask = '<strong>'+self.state.inputValue+'</strong>';
-      var label = op.label.replace(regEx, replaceMask);
+        var regEx = new RegExp(self.state.inputValue, 'ig');
+        var result = string.match(regEx);
+        var replaceMask = '<strong>' + result + '</strong>';
+        var label = op.label.replace(result, replaceMask);
 
       return (
         <div ref={ref} key={'option-'+op.value} className={optionClass} onMouseEnter={mouseEnter}
