@@ -659,7 +659,7 @@ var Select = React.createClass({
                 mouseDown = this.selectValue.bind(this, op);
 
             var allWords = self.state.inputValue.split(' ');
-            var label = op.label,
+            var label = op.label + (op.subText ? ' - ' + op.subText : ''),
                 regEx,
                 result,
                 replaceMask;
