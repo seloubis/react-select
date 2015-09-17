@@ -602,12 +602,17 @@ var Select = React.createClass({
             var allWords = self.state.inputValue.split(' ');
 			var label = op.label + ((op.subText) ? ' - ' + op.subText : ''),
 				regEx, result, replaceMask;
-			for (var idx=0; idx<allWords.length; idx++) {
-				regEx = new RegExp(allWords[idx], 'ig');
-				result = label.match(regEx);
-				replaceMask = '<strong>' + result + '</strong>';
-				label = label.replace(result, replaceMask);
-			}
+			for (var idx = 0; idx < allWords.length; idx++) {
+                if (allWords[idx] != '' && allWords[idx] != ' ') {
+                    regEx = new RegExp(allWords[idx], 'ig');
+                    result = label.match(regEx);
+                    if (Array.isArray(result)) {
+                        result = result[0];
+                    }
+                    replaceMask = '<strong>' + result + '</strong>';
+                    label = label.replace(regEx, replaceMask);
+                }
+            }
 
             return (
                 <div ref={ref} key={'option-'+op.value} className={optionClass} onMouseEnter={mouseEnter}
