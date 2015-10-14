@@ -668,10 +668,14 @@ var Select = React.createClass({
                     regEx = new RegExp(allWords[idx], 'ig');
                     result = label.match(regEx);
                     if (Array.isArray(result)) {
-                        result = result[0];
+                        for (var tidx = 0; tidx < result.length; tidx++) {
+                            replaceMask = '<strong>' + result[tidx] + '</strong>';
+                            label = label.replace(regEx, replaceMask);
+                        }
+                    } else {
+                        replaceMask = '<strong>' + result + '</strong>';
+                        label = label.replace(regEx, replaceMask);
                     }
-                    replaceMask = '<strong>' + result + '</strong>';
-                    label = label.replace(regEx, replaceMask);
                 }
             }
 
