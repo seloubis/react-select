@@ -609,7 +609,7 @@ var Select = React.createClass({
                     if (Array.isArray(result)) {
                         for (var tidx = 0; tidx < result.length; tidx++ ) {
                             replaceMask = '<strong>' + result[tidx] + '</strong>';
-                            label = label.replace(regEx, replaceMask);
+                            label = label.replace(result[tidx], replaceMask);
                         }
                     } else {
                         replaceMask = '<strong>' + result + '</strong>';
