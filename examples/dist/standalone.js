@@ -609,7 +609,10 @@ var Select = React.createClass({
             var label = op.label + (op.subText ? ' - ' + op.subText : ''),
                 regEx,
                 result,
-                replaceMask;
+                replaceMask,
+                internalRegex;
+            label = label.replace('<strong>', '').replace('</strong>', '');
+
             for (var idx = 0; idx < allWords.length; idx++) {
                 if (allWords[idx] != '' && allWords[idx] != ' ') {
                     regEx = new RegExp(allWords[idx], 'ig');
@@ -617,7 +620,8 @@ var Select = React.createClass({
                     if (Array.isArray(result)) {
                         for (var tidx = 0; tidx < result.length; tidx++) {
                             replaceMask = '<strong>' + result[tidx] + '</strong>';
-                            label = label.replace(result[tidx], replaceMask);
+                            internalRegex = new RegExp(result[idx], 'g');
+                            label = label.replace(internalRegex, replaceMask);
                         }
                     } else {
                         replaceMask = '<strong>' + result + '</strong>';
