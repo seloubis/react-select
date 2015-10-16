@@ -452,7 +452,7 @@ var Select = React.createClass({
 
             if (err) throw err;
 
-            this._optionsCache[input] = data;
+            //this._optionsCache[input] = data;
 
             if (thisRequestId !== this._currentRequestId) {
                 return;
