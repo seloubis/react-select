@@ -599,21 +599,16 @@ var Select = React.createClass({
                 mouseLeave = this.unfocusOption.bind(this, op),
                 mouseDown = this.selectValue.bind(this, op);
 
-            var allWords = self.state.inputValue.split(' ');
-			var label = op.label + ((op.subText) ? ' - ' + op.subText : ''),
-				regEx, result, replaceMask;
-            label = label.replace(/<strong>/ig, '').replace(/<\/strong>/ig, '');
-			for (var idx = 0; idx < allWords.length; idx++) {
-                if (allWords[idx] != '' && allWords[idx] != ' ') {
-                    regEx = new RegExp(allWords[idx], 'ig');
-                    result = label.match(regEx);
-                    if (Array.isArray(result)) {
-                        result = result[0];
-                    }
-                    replaceMask = '<strong>' + result + '</strong>';
-                    label = label.replace(regEx, replaceMask);
-                }
-            }
+            var allWords = self.state.inputValue.split(' ').filter(function(x) { 
+            	return x != '' && x != ' '; }).join('|'),
+				label = op.label + ((op.subText) ? ' - ' + op.subText : '');
+
+			label = label.replace(/<strong>/ig, '').replace(/<\/strong>/igm, '');
+
+			var regex = new RegExp('('+ allWords +')(?![^<]*>|[^<>]*<\/)', 'gmi'),
+				subst = `<strong>$1</strong>`;
+			
+			label.replace(regex, subst);
 
             return (
                 <div ref={ref} key={'option-'+op.value} className={optionClass} onMouseEnter={mouseEnter}
